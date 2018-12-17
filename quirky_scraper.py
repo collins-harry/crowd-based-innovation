@@ -7,9 +7,15 @@ import random
 import requests
 
 def get_json(url):
+    # payload = {
+    #     "username": "<USER NAME>",
+    #     "password": "<PASSWORD>",
+    #     "csrfmiddlewaretoken": "<CSRF_TOKEN>"
+    # }
     current_json = requests.get(url)
+    data = current_json.json()
     with open('data.json','w') as f:
-        json.dump(current_json.content, f)
+        json.dump(data, f)
 
 
 
@@ -38,4 +44,46 @@ def make_url(user_id, ending=None):
 
 
 url = make_url('164569')
+print(url)
 get_json(url)
+
+# APPROACH 1 !!!
+
+# client = requests.session()
+# # Retrieve the CSRF token first
+# csrf = client.get(url).cookies['csrftoken']
+#
+# login_data = {'username': 'subscribesuhaib@gmail.com', 'password': 'harryisagirl', 'csrfmiddlewaretoken': csrf, 'next': '/'}
+# r = client.post(url, data=login_data, headers=dict(Referer=url))
+# print(r.status_code)
+
+# APPROACH 2 !!!
+
+# import requests
+# from bs4 import BeautifulSoup
+#
+# client = requests.Session()
+# headers = {'User-Agent': 'Mozilla/5.0'}
+#
+# soup = BeautifulSoup(client.get(url).text, "html.parser")
+# csrf = soup.find(name="authentication_token")
+# print(csrf)
+
+# APPROACH 3 !!!
+
+# #This URL will be the URL that your login form points to with the "action" tag.
+# POSTLOGINURL = 'https://dashboard.quirky.com/login'
+#
+# #This URL is the page you actually want to pull down with requests.
+# REQUESTURL = url
+#
+# payload = {
+#     'username': 'subscribesuhaib@gmail.com',
+#     'pass': 'harryisagirl'
+# }
+#
+# with requests.Session() as session:
+#     post = session.post(POSTLOGINURL, data=payload)
+#     r = session.get(REQUESTURL)
+#     print(session.cookies)
+#     print(r.text)   #or whatever else you want to do with the request data!
