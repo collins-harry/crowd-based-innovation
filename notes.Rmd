@@ -1,0 +1,11 @@
+---
+title: Notes
+date: 'Mon 17 Dec 2018 08:34:19 PM CET'
+output: pdf_document
+urlcolor: blue
+linkcolor: black
+---
+
+We only choose to scrap following and not followers. 
+The assumption being that we will encounter the followers later on in the graph. The subassumption being that that users who contribute will be well connected in the graphs and that all 'important' users will be found. 
+We will then find the directed follower relationships when we scrape the follower user page.
